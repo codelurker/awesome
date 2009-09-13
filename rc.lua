@@ -10,8 +10,7 @@ require("wicked")
 -- Themes define colours, icons, and wallpapers
 -- The default is a dark theme
 --theme_path = "/usr/share/awesome/themes/default/theme.lua"
---theme_path = "/home/mam/.config/awesome/themes/def/theme.lua"
-theme_path = "/usr/share/awesome/themes/zenburn/theme.lua"
+theme_path = "/home/mam/.config/awesome/themes/zenburn/theme.lua"
 -- Uncommment this for a lighter theme
 --theme_path = "/usr/share/awesome/themes/sky/theme.lua"
 
@@ -53,12 +52,13 @@ floatapps =
 {
     -- by class
     ["MPlayer"] = true,
+	["SMPlayer"] = true,
+	["vlc"] = true,
     ["pinentry"] = true,
     ["gimp"] = true,
     -- by instance
     ["mocp"] = true,
     ["pidgin"] = true,
-    ["taskcoach.py"] = true,
     ["keepassx"] = true,
 	["skype"] = true
 }
@@ -67,9 +67,6 @@ floatapps =
 -- Use the screen and tags indices.
 apptags =
 {
-    -- ["Firefox"] = { screen = 1, tag = 2 },
-    -- ["mocp"] = { screen = 2, tag = 4 },
-	["taskcoach.py"] = { screen = 1, tag = 6 },
 	["Firefox"] = { screen = 1, tag = 2 },
 	["Opera"] = { screen = 1, tag = 2 }
 }
@@ -80,43 +77,13 @@ use_titlebar = false
 
 -- {{{ Tags
 -- Define tags table.
---tags = {}
---#settings.tag_properties =
---#{
---#	{ name = '01-main  ', layout = settings.layouts[1], mwfact = 0.550 },
---#    { name = '02-web  ',  layout = settings.layouts[3] },
---#---    { name = '03-dev  ',  layout = settings.layouts[1] },-
---#    { name = '04-chat  ', layout = settings.layouts[1] },
---#    { name = '05-misc  ', layout = settings.layouts[5], mwfact = 0.225 },
-    --{ name = '6', layout = settings.layouts[1] },
-    --{ name = '7', layout = settings.layouts[1] },
-    --{ name = '8', layout = settings.layouts[1] },
-    --{ name = '9', layout = settings.layouts[1] }
---}
---for s = 1, screen.count() do
-    -- Each screen has its own tag table.
---    tags[s] = {}
-    -- Create 9 tags per screen.
---    for tagnumber = 1, 9 do
- --       tags[s][tagnumber] = tag(tagnumber)
-        -- Add tags to screen one by one
- --       tags[s][tagnumber].screen = s
-  --      awful.layout.set(layouts[1], tags[s][tagnumber])
-  --  end
-    -- I'm sure you want to see at least one tag.
-   -- tags[s][1].selected = true
---end
-
--- {{{ Tags
--- Define tags table.
 tags = {}
 tags.settings = {
     { name = "1-Main",   layout = layouts[1],  },
     { name = "2-Web",     layout = layouts[1],  },
     { name = "3-IM",   layout = layouts[10]  },
     { name = "4-Media",    layout = layouts[10],  },
-	{ name = "5-Dev",	layout = layouts[1], },
-    { name = "6-Misc",   layout = layouts[10], setslave = true },
+    { name = "5-Misc",   layout = layouts[10], setslave = true },
 }
 
 -- Initialize tags
@@ -141,8 +108,12 @@ mytextbox = widget({ type = "textbox", align = "right" })
 mytextbox.text = "<b><small> " .. awesome.release .. " </small></b>"
 
 -- Added by me
+
+-- { Battery widget
 --batterybox = widget ({ type = "textbox", name = "battery", align = "right" })
--- { Hai
+-- }
+
+-- { MPD widget
     mpdwidget = widget({
     type = 'textbox',
     name = 'widget',
@@ -171,6 +142,7 @@ myawesomemenu = {
 
 appmenu = {
 	{ "Chromium", "chromium-browser" },
+	{ "Evolution", "evolution" },
 	{ "Firefox", "firefox" },
 	{ "Google Chrome", "google-chrome" },
 	{ "Opera", "opera -notrayicon" },
@@ -362,12 +334,6 @@ globalkeys = awful.util.table.join(
               end)
 )
 
---    awful.key({ }, "#107", function () awesome.util.spawn("scrot -q 100 -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
---    awful.key({ }, "#172", function () awesome.util.spawn("mpc toggle") end),
---    awful.key({ }, "#174", function () awesome.util.spawn("mpc stop") end),
---    awful.key({ }, "#171", function () awesome.util.spawn("mpc next") end),
---    awful.key({ }, "#173", function () awesome.util.spawn("mpc prev") end)
-
 -- Client awful tagging: this is useful to tag some clients and then do stuff like move to tag on them
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
@@ -545,17 +511,17 @@ awful.hooks.arrange.register(function (screen)
     end
 end)
 
+-- { Battery widget hook
 --wicked.register(batterybox, 'function', function (widget, args)
 --   local filedescriptor = io.popen('acpitool -b | awk {\'print \"   Battery: "$4, $5\'}')
 --   local value = filedescriptor:read()
 --   filedescriptor:close()
 --   return value
 --end, 30)
-
+-- }
 
 -- Hook called every minute
 awful.hooks.timer.register(60, function ()
---    mytextbox.text = '<span color="#e2baf1">'..os.date(" %a %b %d, %H:%M ")..'</span>'
     mytextbox.text = os.date(" %a %b %d, %H:%M ")
 end)
 -- }}}
