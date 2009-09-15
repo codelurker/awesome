@@ -122,7 +122,7 @@ mytextbox.text = "<b><small> " .. awesome.release .. " </small></b>"
     wicked.register(mpdwidget, wicked.widgets.mpd, 
     function (widget, args)
            if args[1]:find("volume:") == nil then
-              return ' <span color="#e2baf1">Now Playing:</span> '..args[1]..' <span color="#e2ba1f1">|</span>'
+              return ' <span color="#e2baf1">Now Playing:</span> '..args[1]..' <span color="#e2baf1">|</span>'
            else
                       return ''
                    end
