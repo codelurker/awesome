@@ -60,8 +60,7 @@ floatapps =
     ["mocp"] = true,
     ["pidgin"] = true,
     ["keepassx"] = true,
-	["skype"] = true,
-	["galculator"] = true
+	["skype"] = true
 }
 
 -- Applications to be moved to a pre-defined tag by class or instance.
